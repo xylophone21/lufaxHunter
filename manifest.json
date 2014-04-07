@@ -7,7 +7,7 @@
 
   "permissions": [
     "tabs",
-    "http://list.lufax.com/*"
+    "https://list.lufax.com/*"
   ],
 
   "background": {
@@ -20,8 +20,9 @@
   },
   "content_scripts": [
     {
-      "matches": ["http://list.lufax.com/*"],
-      "js": ["myscript.js"]
+      "matches": ["https://list.lufax.com/list/listing", "http://list.lufax.com/list/listing"],
+      "js": ["jquery-2.1.0.min.js", "myscript.js"],
+      "run_at": "document_end"
     }
   ]
 }
