@@ -23,10 +23,11 @@ function hunt() {
       table = $($.parseHTML(data)).find('#list-table');
       items = $.grep(table.find('.operate-status').not('.done-status'), function(item) {
         node = $(item);
+        prev = node.prev();
         cur = parseFloat(node.find('.cur:first').text().replace(',', ''));
         auction = node.find('a.btn-aution');
-        new_user = node.find('i.new-user-icon');
-        return cur < threshold && auction.length == 0 && new_user.length == 0;
+        new_user = prev.find('i.new-user-icon');
+        return cur <= threshold && auction.length == 0 && new_user.length == 0;
       });
       links = $.map(items, function(item) {
         return $(item).find('a:first')[0].href
