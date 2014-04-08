@@ -50,4 +50,20 @@ function hunt() {
   setTimeout(hunt, 2000);
 }
 
-hunt()
+
+function fill_pass() {
+  chrome.storage.local.get({tradeCode: ''}, function(items) {
+    $('#tradeCode').val(items.tradeCode);
+  })
+  $('#inputValid').select();
+}
+
+
+if (window.location.pathname.indexOf('list') == 1) {
+  hunt();
+}
+
+if (window.location.pathname.indexOf('trading') == 1) {
+  fill_pass();
+}
+

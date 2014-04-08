@@ -7,7 +7,8 @@
 
   "permissions": [
     "tabs",
-    "https://list.lufax.com/*"
+    "https://list.lufax.com/*",
+    "storage"
   ],
 
   "background": {
@@ -20,9 +21,10 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://list.lufax.com/list/listing", "http://list.lufax.com/list/listing"],
+      "matches": ["https://list.lufax.com/list/listing", "http://list.lufax.com/list/listing", "https://trading.lufax.com/trading/security-valid*"],
       "js": ["jquery-2.1.0.min.js", "myscript.js"],
       "run_at": "document_end"
     }
-  ]
+  ],
+  "options_page": "options.html"
 }
