@@ -23,11 +23,18 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse) {
       iconUrl: 'icon.png'
     }
     var notifyid = 'Notifier'+Date.now();
-    chrome.notifications.create(notifyid,opt,function(id) {console.log("create");});
-		setTimeout(function(){ 
-      chrome.notifications.clear(notifyid,function(wasCleared) {
-        console.log("cleared");
-      }); 
-    },10000);
+    chrome.notifications.create(notifyid,opt,function(id) {});
+    
+    var player = document.getElementById('player');
+    player.play();
+
+    chrome.notifications.onClosed.addListener(function(notificationId,byUser) {
+      if(notificationId == notifyid) {
+        player.currentTime = 0;
+        player.pause();
+      }
+    });
+
+		setTimeout(function(){chrome.notifications.clear(notifyid,function(wasCleared) {});},10000);
 	}
 });
