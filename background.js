@@ -22,7 +22,12 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse) {
       message: message.message,
       iconUrl: 'icon.png'
     }
-    var notify = chrome.notifications.create('Notifier'+Date.now(),opt,function(id) {console.log("create");});
-		//setTimeout(function(){ notify.clear(); },10000);
+    var notifyid = 'Notifier'+Date.now();
+    chrome.notifications.create(notifyid,opt,function(id) {console.log("create");});
+		setTimeout(function(){ 
+      chrome.notifications.clear(notifyid,function(wasCleared) {
+        console.log("cleared");
+      }); 
+    },10000);
 	}
 });
