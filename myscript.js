@@ -36,7 +36,7 @@ function hunt() {
                          cur = parseFloat(node.find('.cur:first').text().replace(',', ''));//最低投资金额
                          auction = node.find('a.btn-auction');//竞拍按钮
                          new_user = prev.find('i.new-user-icon');//新客按钮
-                         return cur <= threshold && auction.length == 0 /*&& new_user.length == 0*/;
+                         return cur <= threshold && auction.length == 0 && new_user.length == 0;
                        });
         links = $.map(items, function(item) {
           return $(item).find('a:first')[0].href
@@ -56,7 +56,7 @@ function hunt() {
   setTimeout(hunt, 2000);
 }
 
-
+//似乎是初期的代码,购买要交易码?交易前暂不删除
 function fill_pass() {
   chrome.storage.local.get({tradeCode: ''}, function(items) {
     $('#tradeCode').val(items.tradeCode);
