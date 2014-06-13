@@ -6,6 +6,7 @@
   "version": "0.1",
 
   "permissions": [
+    "notifications",
     "tabs",
     "https://list.lufax.com/*",
     "storage"
@@ -14,17 +15,20 @@
   "background": {
     "page": "background.html"
   },
+
   "page_action": {
     "default_popup": "popup.html",
     "default_icon": "icon.png",
     "default_title": "Lufax Hunter"
   },
+
   "content_scripts": [
     {
-      "matches": ["https://list.lufax.com/list/listing", "http://list.lufax.com/list/listing", "https://trading.lufax.com/trading/security-valid*"],
+      "matches": ["https://list.lufax.com/list/listing", "http://list.lufax.com/list/listing", "https://list.lufax.com/list/productDetail*"],
       "js": ["jquery-2.1.0.min.js", "myscript.js"],
       "run_at": "document_end"
     }
   ],
+
   "options_page": "options.html"
 }

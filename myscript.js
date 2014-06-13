@@ -6,6 +6,11 @@ $(".lufax_hunter").css('top', '10px')
 $(".lufax_hunter").css('left', '0px')
 $(".lufax_hunter").css('position', 'fixed')
 
+function notify(title,msg) {
+  console.log("notify...");
+  chrome.runtime.sendMessage({ event:"notify", message:msg, title:title });
+}
+
 var hunt_count = 0;
 
 function hunt() {
@@ -31,7 +36,7 @@ function hunt() {
                          cur = parseFloat(node.find('.cur:first').text().replace(',', ''));//最低投资金额
                          auction = node.find('a.btn-auction');//竞拍按钮
                          new_user = prev.find('i.new-user-icon');//新客按钮
-                         return cur <= threshold && auction.length == 0 && new_user.length == 0;
+                         return cur <= threshold && auction.length == 0 /*&& new_user.length == 0*/;
                        });
         links = $.map(items, function(item) {
           return $(item).find('a:first')[0].href
@@ -39,6 +44,7 @@ function hunt() {
 
         if (links.length > 0) {  
           $('#hunter_switcher').prop('checked', false);
+          notify("通知","可以购买了！抓紧时间!");
           window.open(links[0], '_blank');
         }
 
@@ -62,8 +68,8 @@ function fill_pass() {
 if (window.location.pathname.indexOf('list') == 1) {
   hunt();
 }
-
-if (window.location.pathname.indexOf('trading') == 1) {
-  fill_pass();
-}
+//暂未实现
+//else if (window.location.pathname.indexOf('/list/productDetail') == 1) {
+//  fill_pass();
+//}
 
