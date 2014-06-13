@@ -1,9 +1,9 @@
 function test() {
 }
 
-$('body').after('<div class=\"lufax_hunter\"> <input type=\"text\" id=\"hunter_threshold\"> <span id=\"hunter_counter\">0</span> <input type=\"checkbox\" id=\"hunter_switcher\"> LufanHunter </div>  ')
+$('body').after('<div class=\"lufax_hunter\"> <input type=\"text\" id=\"hunter_threshold\" value="100000"> <span id=\"hunter_counter\">0</span> <input type=\"checkbox\" id=\"hunter_switcher\"> LufanHunter </div>  ')
 $(".lufax_hunter").css('top', '10px')
-$(".lufax_hunter").css('right', '10px')
+$(".lufax_hunter").css('left', '0px')
 $(".lufax_hunter").css('position', 'fixed')
 
 var hunt_count = 0;
@@ -20,7 +20,7 @@ function hunt() {
   enabled = $('#hunter_switcher').prop('checked');
   if (enabled) {
     
-    var ajax = $.ajax('http://list.lufax.com/list/listing')
+    var ajax = $.ajax(window.location)
       .done(function (data) {
         table = $($.parseHTML(data)).find('#list-table');
         items = $.grep(table.find('.operate-status')
@@ -28,9 +28,9 @@ function hunt() {
                        .not('.preview-status'), function(item) {
                          node = $(item);
                          prev = node.prev();
-                         cur = parseFloat(node.find('.cur:first').text().replace(',', ''));
-                         auction = node.find('a.btn-auction');
-                         new_user = prev.find('i.new-user-icon');
+                         cur = parseFloat(node.find('.cur:first').text().replace(',', ''));//最低投资金额
+                         auction = node.find('a.btn-auction');//竞拍按钮
+                         new_user = prev.find('i.new-user-icon');//新客按钮
                          return cur <= threshold && auction.length == 0 && new_user.length == 0;
                        });
         links = $.map(items, function(item) {
