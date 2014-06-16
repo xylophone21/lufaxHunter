@@ -1,7 +1,7 @@
 function test() {
 }
 
-$('body').after('<div class=\"lufax_hunter\"> <input type=\"text\" id=\"hunter_threshold\" value="100000"> <span id=\"hunter_counter\">0</span> <input type=\"checkbox\" id=\"hunter_switcher\"> LufanHunter </div>  ')
+$('body').after('<div class=\"lufax_hunter\">LufanHunter<br>Threshold:<input type=\"text\" id=\"hunter_threshold\" value="100000"><br>Retry Count:<span id=\"hunter_counter\">0</span><br>Enable:<input type=\"checkbox\" id=\"hunter_switcher\"></div>')
 $(".lufax_hunter").css('top', '10px')
 $(".lufax_hunter").css('left', '0px')
 $(".lufax_hunter").css('position', 'fixed')
@@ -36,6 +36,7 @@ function hunt() {
                          cur = parseFloat(node.find('.cur:first').text().replace(',', ''));//最低投资金额
                          auction = node.find('a.btn-auction');//竞拍按钮
                          new_user = prev.find('i.new-user-icon');//新客按钮
+                         remain = parseFloat(prev.find('.remain-price:first').text().replace(/[^0-9.]/ig,""));//剩余可投金额 或 浮动价
                          return cur <= threshold && auction.length == 0 && new_user.length == 0;
                        });
         links = $.map(items, function(item) {
